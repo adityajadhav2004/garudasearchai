@@ -95,4 +95,4 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 
 ---
 
-> Built with ❤️ by [adityajadhav2004](https://github.com/adityajadhav2004)
+> Built by [adityajadhav2004](https://github.com/adityajadhav2004)
