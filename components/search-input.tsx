@@ -68,7 +68,11 @@ export function SearchInput({ onSearch, isLoading }: SearchInputProps) {
             />
 
             {/* Glassmorphic search button */}
-            <motion.div className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10">
+            <motion.div
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10"
+              whileHover={{ scale: 1.02, backgroundColor: "var(--muted)" }}
+              whileTap={{ scale: 0.98 }}
+            >
               <Button
                 type="submit"
                 disabled={!query.trim() || isLoading}
@@ -78,11 +82,6 @@ export function SearchInput({ onSearch, isLoading }: SearchInputProps) {
                   borderColor: "var(--border)",
                   color: "var(--foreground)",
                 }}
-                whileHover={{
-                  scale: 1.02,
-                  backgroundColor: "var(--muted)",
-                }}
-                whileTap={{ scale: 0.98 }}
               >
                 <div className="relative flex items-center gap-2">
                   <Sparkles className="w-4 h-4" />

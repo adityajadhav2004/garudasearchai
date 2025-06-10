@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { SearchInput } from "@/components/search-input"
 import { LoadingScreen } from "@/components/loading-screen"
 import { ResultAnswer } from "@/components/result-answer"
@@ -10,6 +10,57 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { searchWithSerper } from "@/lib/serper"
 import { generateAIResponse, type AIResponse } from "@/lib/openrouter"
 import { motion, AnimatePresence } from "framer-motion"
+
+function AnimatedBackgroundDots() {
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
+
+  useEffect(() => {
+    function update() {
+      setDimensions({ width: window.innerWidth, height: window.innerHeight })
+    }
+    update()
+    window.addEventListener("resize", update)
+    return () => window.removeEventListener("resize", update)
+  }, [])
+
+  if (dimensions.width === 0 || dimensions.height === 0) return null
+
+  return (
+    <div className="fixed inset-0 opacity-30 pointer-events-none">
+      {[...Array(50)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-px h-px rounded-full"
+          style={{ backgroundColor: "var(--primary)" }}
+          initial={{
+            x: Math.random() * dimensions.width,
+            y: Math.random() * dimensions.height,
+            opacity: 0,
+          }}
+          animate={{
+            x: [
+              Math.random() * dimensions.width,
+              Math.random() * dimensions.width,
+              Math.random() * dimensions.width,
+            ],
+            y: [
+              Math.random() * dimensions.height,
+              Math.random() * dimensions.height,
+              Math.random() * dimensions.height,
+            ],
+            opacity: [0, 1, 0.5, 1, 0],
+          }}
+          transition={{
+            duration: 8 + Math.random() * 4,
+            repeat: Number.POSITIVE_INFINITY,
+            delay: i * 0.1,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </div>
+  )
+}
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
@@ -49,40 +100,7 @@ export default function Home() {
       }}
     >
       {/* Quantum field background */}
-      <div className="fixed inset-0 opacity-30 pointer-events-none">
-        {[...Array(50)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-px h-px rounded-full"
-            style={{ backgroundColor: "var(--primary)" }}
-            initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
-              opacity: 0,
-            }}
-            animate={{
-              x: [
-                Math.random() * window.innerWidth,
-                Math.random() * window.innerWidth,
-                Math.random() * window.innerWidth,
-              ],
-              y: [
-                Math.random() * window.innerHeight,
-                Math.random() * window.innerHeight,
-                Math.random() * window.innerHeight,
-              ],
-              opacity: [0, 1, 0.5, 1, 0],
-              scale: [1, 2, 1],
-            }}
-            transition={{
-              duration: 8 + Math.random() * 4,
-              repeat: Number.POSITIVE_INFINITY,
-              delay: i * 0.1,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
-      </div>
+      <AnimatedBackgroundDots />
 
       <LoadingScreen isVisible={isLoading} />
 
@@ -225,8 +243,9 @@ export default function Home() {
           className="mt-24 text-center"
         >
           <p className="text-sm" style={{ color: "var(--muted-foreground)" }}>
-            Powered by <span style={{ color: "var(--primary)", textShadow: `0 0 5px var(--primary)` }}>Quantum AI</span>{" "}
-            • Built for the Future
+            Powered by{" "}
+            <span style={{ color: "var(--primary)", textShadow: `0 0 5px var(--primary)` }}>Quantum AI</span> • Built for
+            the Future
           </p>
         </motion.footer>
       </main>
