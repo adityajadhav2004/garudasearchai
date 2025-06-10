@@ -38,9 +38,9 @@ export function SearchInput({ onSearch, isLoading }: SearchInputProps) {
     >
       <form onSubmit={handleSubmit} className="relative">
         <motion.div className="relative group" whileHover={{ scale: 1.01 }} transition={{ duration: 0.2 }}>
-          {/* Glassmorphic container */}
+          {/* Glassmorphic container with flex layout for robust alignment */}
           <div
-            className="relative rounded-xl backdrop-blur-xl border transition-all duration-300"
+            className="relative rounded-xl backdrop-blur-xl border transition-all duration-300 flex items-center"
             style={{
               backgroundColor: "var(--glass)",
               borderColor: isFocused ? "var(--primary)" : "var(--border)",
@@ -49,16 +49,15 @@ export function SearchInput({ onSearch, isLoading }: SearchInputProps) {
                 : `0 4px 16px rgba(0, 0, 0, 0.1)`,
             }}
           >
-            {/* Search icon - fixed position, no animation */}
-            <div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10">
+            {/* Search icon - always vertically centered, never moves */}
+            <span className="flex items-center justify-center pl-4 pr-2 h-full">
               <Search
                 className="w-5 h-5"
                 style={{
                   color: isFocused ? "var(--primary)" : "var(--muted-foreground)",
                 }}
               />
-            </div>
-
+            </span>
             <Input
               type="text"
               placeholder="Search anything..."
@@ -67,15 +66,14 @@ export function SearchInput({ onSearch, isLoading }: SearchInputProps) {
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
               disabled={isLoading}
-              className="pl-12 pr-28 py-4 text-lg bg-transparent border-0 focus:ring-0 focus:outline-none relative z-10"
+              className="flex-1 bg-transparent border-0 focus:ring-0 focus:outline-none text-lg py-4 pr-4"
               style={{
                 color: "var(--foreground)",
               }}
             />
-
-            {/* Glassmorphic search button - always in the same place */}
+            {/* Search button - always in the bar, never moves */}
             <motion.div
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10"
+              className="flex items-center pr-2"
               whileHover={{ scale: 1.02, backgroundColor: "var(--muted)" }}
               whileTap={{ scale: 0.98 }}
             >
