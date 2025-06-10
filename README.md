@@ -94,9 +94,3 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 [MIT](LICENSE)
 
 ---
-
-<<<<<<< HEAD
-> Built with ❤️ by [adityajadhav2004](https://github.com/adityajadhav2004)
-=======
-> Built by [adityajadhav2004](https://github.com/adityajadhav2004)
->>>>>>> 9fc7ff487ab60c9d304971160bc196a2d7b7bed2
