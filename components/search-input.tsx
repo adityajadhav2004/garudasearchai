@@ -15,11 +15,17 @@ interface SearchInputProps {
 export function SearchInput({ onSearch, isLoading }: SearchInputProps) {
   const [query, setQuery] = useState("")
   const [isFocused, setIsFocused] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setError(null)
     if (query.trim() && !isLoading) {
-      onSearch(query.trim())
+      try {
+        await onSearch(query.trim())
+      } catch (err) {
+        setError("Sorry, something went wrong. Please try again.")
+      }
     }
   }
 
@@ -67,7 +73,7 @@ export function SearchInput({ onSearch, isLoading }: SearchInputProps) {
               }}
             />
 
-            {/* Glassmorphic search button */}
+            {/* Glassmorphic search button - always in the same place */}
             <motion.div
               className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10"
               whileHover={{ scale: 1.02, backgroundColor: "var(--muted)" }}
@@ -106,6 +112,10 @@ export function SearchInput({ onSearch, isLoading }: SearchInputProps) {
             )}
           </AnimatePresence>
         </motion.div>
+        {/* Error message always below the bar */}
+        {error && (
+          <div className="text-red-500 text-sm text-center mt-2">{error}</div>
+        )}
       </form>
     </motion.div>
   )

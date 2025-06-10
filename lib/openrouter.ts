@@ -35,9 +35,9 @@ export async function generateAIResponse(query: string, searchResults: any[]): P
       sources: Array.isArray(data.sources) ? data.sources : [],
     }
   } catch (error) {
-    console.error("AI response error:", error)
+    // Fallback response if API fails
     return {
-      answer: `I apologize, but I encountered an issue while processing your query about "${query}". Please try again.`,
+      answer: `Sorry, the AI engine is temporarily unavailable. Please try again later or rephrase your query about \"${query}\".`,
       followUpQuestions: [
         "Can you rephrase your question?",
         "Try a different search term",
