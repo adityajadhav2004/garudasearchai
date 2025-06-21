@@ -13,7 +13,7 @@ GarudaSearchAI is a modern, quantum-inspired AI search interface built with Next
 
 ## Demo
 
-[Live Demo](https://your-deployment-link.com)
+[Website Link](https://garudasearch.netlify.app/)
 
 ## Getting Started
 
